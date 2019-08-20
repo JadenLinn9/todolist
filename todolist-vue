@@ -28,20 +28,41 @@
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     </head>
     <style>
+        .container {
+            width: 800px;
+            height: 500px;
+            margin: 0 auto;
+        }
+        h2 {
+            margin-top: 20px;
+            text-align: center;
+        }
         ul {
             list-style: none;
+            border: 1px solid bisque;
         }
+        li {
+            text-align: center;
+            border: 1px solid wheat;
+            padding: 10px;
+            font-size: 1.5em;
+        }
+        .hide {
+            display: none;
+        }
+
     </style>
     <body>
-        <div id="app">
+        <div id="app" class="container">
             <h2>To Do list</h2>
             <ul>
                 <li v-for="(todo,index) in todoList">
-                    {{ todo.id }} {{ todo.title }}
-                    <button v-on:click="editBtnClick">pen</button>
-                    <button v-on:click="delBtnClick">X</button>
+                    {{ todo.title }} 
+                    <input type="text" class="hide">
+                    <button class="btn btn-sm btn-primary" v-on:click="editBtnClick">pen</button>
+                    <button class="btn btn-sm btn-danger"v-on:click="delBtnClick">X</button>
                 </li>
-                <li><button v-on:click="newBtnClick">+</button>Add new item</li>
+                <li><button class="btn btn-sm btn-success" v-on:click="newBtnClick">+</button>&ensp;Add new item</li>
             </ul>
         </div>
 
@@ -65,7 +86,7 @@
                                     v-model="title"
                                     id="titleTextBox"
                                     class="form-control"
-                                    placeholder="請輸入標題"
+                                    placeholder="todo"
                                 />
                             </div>
                         </form>
@@ -73,10 +94,10 @@
                     <div class="modal-footer">
                         <div class="pull-right">
                             <button type="button" id="okButton" v-on:click="okButtonClick" class="btn btn-success">
-                                <span class="glyphicon glyphicon-ok"></span> 確定
+                                <span class="glyphicon glyphicon-ok"></span> Create
                             </button>
                             <button type="button" id="cancelButton" class="btn btn-default" data-dismiss="modal">
-                                <span class="glyphicon glyphicon-remove"></span> 取消
+                                <span class="glyphicon glyphicon-remove"></span> Cancel
                             </button>
                         </div>
                     </div>
@@ -125,6 +146,7 @@
         </div>
 
         <script>
+           
             var app = new Vue({
                 el: '#app',
                 data: {
@@ -134,10 +156,12 @@
                 },
                 methods: {
                     newBtnClick: function() {
-                        $('#newsModal').modal()
+                        newsModalApp.title = '';
+                        newsModalApp.todoIndex = -1;
+                        $('#newsModal').modal();
                     },
-                    editBtnClick: function() {
-                        $('#newsModal').modal()
+                    editBtnClick: function(index) {
+                        
                     },
                     delBtnClick: function() {
                         $('#deleteBox').modal()
@@ -145,12 +169,30 @@
                 }
             })
 
-            // news model settings
-            var newsModalApp = new Vue({
-                el: '#newsModel',
-                data: {},
+             // news model settings
+             var newsModalApp = new Vue({
+                el: '#newsModal',
+                data: {
+                    title:'',
+                    todoIndex:0,
+                },
                 methods: {
-                    title: 'dsf'
+                    okButtonClick: function(){
+                        if(this.todoIndex < 0){
+                        var newTodo = {
+                            title:this.title,
+                        }
+                        app.todoList.push(newTodo);
+                    
+                    }else{
+                        app.todoList[this.todoIndex].title = this.title;
+                    }
+                    $('#newsModal').modal("hide");
+
+                    }
+
+
+
                 }
             })
 
