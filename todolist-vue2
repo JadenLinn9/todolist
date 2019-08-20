@@ -65,7 +65,8 @@
                     >&ensp;<span style="color: #28a745;font-weight:bold">Add new item</span>
                 </li>
                 <li v-for="(todo,index) in todoList">
-                    <span style="float: left" id="done" v-on:click="doneEvent">TODO</span>{{ todo.title }} &emsp;<span style="font-size: 0.8em"
+                    <span style="float: left" id="done" v-on:click="doneEvent">TODO</span>{{ todo.title }} &emsp;<span
+                        style="font-size: 0.8em"
                         ><i class="material-icons" style="font-size: 0.8em"> create </i>{{ todo.note }}</span
                     >
                     <!-- <button class="btn btn-sm btn-primary" v-on:click="editBtnClick">pen</button> -->
@@ -73,7 +74,6 @@
                 </li>
             </ul>
         </div>
-
 
         <!-- 新增/修改對話盒 -->
         <div id="newsModal" class="modal fade" role="dialog">
@@ -152,15 +152,15 @@
             </div>
         </div>
 
-       <!-- finish area -->
+        <!-- finish area -->
         <div id="finish" class="container">
-                <h2>FINISH</h2>
-                <ul>
-                    <li v-for="(finish,index) in finishList">
-                        {{finish.title}}
-                    </li>
-                    <li>A </li>
-                </ul>
+            <h2>FINISH</h2>
+            <ul>
+                <li v-for="(finish,index) in finishList">
+                    {{ finish.title }}
+                </li>
+                <li>A</li>
+            </ul>
         </div>
 
         <!-- finish 刪除對話盒 -->
@@ -192,15 +192,13 @@
         </div>
 
         <script>
-          
             var app = new Vue({
                 el: '#app',
                 data: {
                     todoList: [
                         { title: 'plan A', note: 'note1', isDone: 'false' },
                         { title: 'plan B', note: 'note2', isDone: 'true' }
-                    ],
-
+                    ]
                 },
                 methods: {
                     newBtnClick: function() {
@@ -212,12 +210,12 @@
                     delBtnClick: function() {
                         $('#deleteBox').modal()
                     },
-                    doneEvent: function(index){
+                    doneEvent: function(index) {
                         // app.todoList.splice(index,1);
                         var newFinish = {
-                            title:1222,
+                            title: this.title //打包已完成的值進行push
                         }
-                        finishApp.finishList.push(newFinish);
+                        finishApp.finishList.push(newFinish)
                     }
                 }
             })
@@ -262,40 +260,30 @@
             })
 
             var finishApp = new Vue({
-                el:'#finish',
-                data:{
-                    finishList:[
-                        
-                    ]
+                el: '#finish',
+                data: {
+                    finishList: []
                 },
-                methods:{
-                    delBtnClick: function(){
-                        $('#deleteBoxFinish').modal();
+                methods: {
+                    delBtnClick: function() {
+                        $('#deleteBoxFinish').modal()
                     }
-
                 }
-
             })
 
             var deleteBoxFinishApp = new Vue({
-                el:'#deleteBoxFinish',
-                data:{
-
-                },
-                methods:{
-                    finishDeleteYes: function(index){
-                        finishApp.todoList.splice(index,1);
+                el: '#deleteBoxFinish',
+                data: {},
+                methods: {
+                    finishDeleteYes: function(index) {
+                        finishApp.todoList.splice(index, 1)
                     },
-                    finishDeleteNo: function(){
-                        alert('back to list');
+                    finishDeleteNo: function() {
+                        alert('back to list')
                     }
-
                 }
             })
-
         </script>
-        <script>
-
-        </script>
+        <script></script>
     </body>
 </html>
