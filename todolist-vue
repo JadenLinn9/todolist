@@ -3,14 +3,16 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Lab</title>
+        <title>TODO LIST</title>
         <link
             rel="stylesheet"
             href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
             integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
             crossorigin="anonymous"
         />
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+
         <link href="https://fonts.googleapis.com/css?family=Livvic:400,600&display=swap" rel="stylesheet" />
         <script
             src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -35,7 +37,7 @@
             color: #6d6734;
         }
         .container {
-            width: 800px;
+            width: 700px;
             height: 500px;
             margin: 0 auto;
         }
@@ -63,13 +65,15 @@
             <h2>To Do list</h2>
             <ul id="item-list">
                 <li v-for="(todo,index) in todoList">
-                    {{ todo.btn }} {{ todo.title }}
+                    <span style="float: left">DAY</span>{{ todo.title }}&emsp;<span style="font-size: 0.8em"><i class="material-icons" style="font-size: 0.8em">
+                            create
+                            </i>{{ todo.note}}</span> 
                     <input type="text" class="hide" />
                     <!-- <button class="btn btn-sm btn-primary" v-on:click="editBtnClick">pen</button> -->
-                    <button class="btn btn-sm btn-danger" v-on:click="delBtnClick">X</button>
+                    <button class="btn btn-sm btn-danger" v-on:click="delBtnClick" style="float: right">X</button>
                 </li>
                 <li>
-                    <button class="btn btn-sm btn-success" v-on:click="newBtnClick">+</button>&ensp;<span
+                    <button class="btn btn-sm btn-success" v-on:click="newBtnClick" style="float: right">+</button>&ensp;<span
                         style="color: #28a745;font-weight:bold"
                         >Add new item</span
                     >
@@ -97,7 +101,17 @@
                                     id="titleTextBox"
                                     class="form-control"
                                     placeholder="todo"
-                                />
+                                /><br>
+                                <label for="noteTextBox">
+                                        <span class="glyphicon glyphicon-bullhorn"></span>
+                                        note
+                                </label>
+                                <input 
+                                    type="text"
+                                    class="form-control"
+                                    id="noteTextBox"
+                                    v-model="note"
+                                    placeholder="note">
                             </div>
                         </form>
                     </div>
@@ -148,8 +162,8 @@
                 el: '#app',
                 data: {
                     todoList: [
-                        { btn: 0, title: 'plan A', isDone: 'false' },
-                        { btn: 0, title: 'plan B', isDone: 'true' }
+                        { btn: 0, title: 'plan A', note: 'note1',isDone: 'false' },
+                        { btn: 0, title: 'plan B', note: 'note2',isDone: 'true' }
                     ]
                 },
                 methods: {
@@ -170,15 +184,15 @@
                 el: '#newsModal',
                 data: {
                     title: '',
-                    btn: '三',
+                    note:'',
                     todoIndex: 0
                 },
                 methods: {
                     okButtonClick: function() {
                         if (this.todoIndex < 0) {
                             var newTodo = {
-                                btn: this.btn,
-                                title: this.title
+                                title: this.title,
+                                note:this.note,
                             }
                             app.todoList.push(newTodo)
                         } else {
@@ -204,7 +218,7 @@
                 }
             })
         </script>
-        <script>
+        <!-- <script>
             let items = document.querySelectorAll('#item-list > li')
             items.forEach(item => {
                 $(item).prop('draggable', true)
@@ -247,6 +261,6 @@
                 e.stopPropagation()
                 return false
             }
-        </script>
+        </script> -->
     </body>
 </html>
