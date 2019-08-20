@@ -56,9 +56,6 @@
             font-size: 1.5em;
             background-color: #fcf8d6;
         }
-        .hide {
-            display: none;
-        }
     </style>
     <body>
         <div id="app" class="container">
@@ -68,7 +65,6 @@
                     <span style="float: left">DAY</span>{{ todo.title }}&emsp;<span style="font-size: 0.8em"><i class="material-icons" style="font-size: 0.8em">
                             create
                             </i>{{ todo.note}}</span> 
-                    <input type="text" class="hide" />
                     <!-- <button class="btn btn-sm btn-primary" v-on:click="editBtnClick">pen</button> -->
                     <button class="btn btn-sm btn-danger" v-on:click="delBtnClick" style="float: right">X</button>
                 </li>
@@ -210,13 +206,14 @@
                 methods: {
                     deleteYes: function(index) {
                         app.todoList.splice(index, 1)
-                        $('#deleteBox').modal(hide)
+                        $('#deleteBox').modal("hide")
                     },
                     deleteNo: function() {
                         alert('back to the lists')
                     }
                 }
             })
+
         </script>
         <!-- <script>
             let items = document.querySelectorAll('#item-list > li')
